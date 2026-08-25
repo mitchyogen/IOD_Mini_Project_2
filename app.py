@@ -71,6 +71,10 @@ st.markdown(
         .footer-note {margin-top: 2rem; text-align: center; color: #8292A5; font-size: .82rem;}
         .stSelectbox > label {color: #000000;}
         .stNumberInput > label {color: #000000;}
+        .stElementContainer {color: #000000;}
+        [data-testid="stVerticalBlock"] {color: #000000;}
+        [data-testid="stMarkdownContainer"] {color: orange;}
+        [data-testid="stMarkdownContainer"] > p {color: #000000;}
     </style>
     """,
     unsafe_allow_html=True,
