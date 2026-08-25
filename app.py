@@ -107,7 +107,7 @@ st.markdown(
     """
     <div class="hero">
         <h1>🏠 HDB Resale Price Predictor</h1>
-        <p>Estimate the resale value of an HDB flat using its location, property characteristics, storey, remaining lease and transaction timing.</p>
+        <p>Estimate the resale value of an HDB flat using its location, property characteristics, storey and remaining lease.</p>
     </div>
     """,
     unsafe_allow_html=True,
@@ -127,13 +127,13 @@ with left:
             town = st.selectbox("Town", TOWNS, index=TOWNS.index("BISHAN"))
             flat_type = st.selectbox("Flat type", FLAT_TYPES, index=FLAT_TYPES.index("4 ROOM"))
             flat_model = st.selectbox("Flat model", FLAT_MODELS, index=FLAT_MODELS.index("Model A"))
-            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=20.0, max_value=400.0, value=93.0, step=1.0)
-
+            
         with c2:
-            storey_midpoint = st.number_input("Approximate storey", min_value=1.0, max_value=60.0, value=11.0, step=1.0, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
+            storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, value=11, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
             remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, value=71.0, step=0.1)
-            transaction_year = st.selectbox("Transaction year", list(range(2017, CURRENT_YEAR + 2)), index=len(list(range(2017, CURRENT_YEAR + 2))) - 1)
-            transaction_month = st.selectbox("Transaction month", list(range(1, 13)), index=max(datetime.now().month - 1, 0), format_func=lambda x: datetime(2000, x, 1).strftime("%B"))
+            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=200, value=93, step=1.0)
+            # transaction_year = st.selectbox("Transaction year", list(range(2017, CURRENT_YEAR + 2)), index=len(list(range(2017, CURRENT_YEAR + 2))) - 1)
+            # transaction_month = st.selectbox("Transaction month", list(range(1, 13)), index=max(datetime.now().month - 1, 0), format_func=lambda x: datetime(2000, x, 1).strftime("%B"))
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
@@ -153,8 +153,8 @@ if submitted:
             "floor_area_sqm": floor_area_sqm,
             "storey_midpoint": storey_midpoint,
             "remaining_lease_years": remaining_lease_years,
-            "transaction_year": transaction_year,
-            "transaction_month": transaction_month,
+            # "transaction_year": transaction_year,
+            # "transaction_month": transaction_month,
         }
 
         price = predict(model, input_values)
@@ -206,8 +206,8 @@ with right:
             st.write(f"{storey_midpoint:.0f}")
             st.write("**Remaining lease**")
             st.write(f"{remaining_lease_years:.1f} years")
-            st.write("**Transaction period**")
-            st.write(f"{datetime(2000, transaction_month, 1).strftime('%B')} {transaction_year}")
+            # st.write("**Transaction period**")
+            # st.write(f"{datetime(2000, transaction_month, 1).strftime('%B')} {transaction_year}")
 
 st.write("")
 with st.expander("ℹ️ About this estimator"):
