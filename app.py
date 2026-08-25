@@ -109,14 +109,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-m1, m2, m3 = st.columns(3)
-with m1:
-    st.metric("Model target", "Resale Price")
-with m2:
-    st.metric("Prediction type", "Regression")
-with m3:
-    st.metric("Model status", "Ready to connect")
-
 st.write("")
 left, right = st.columns([1.65, 1], gap="large")
 
