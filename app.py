@@ -70,6 +70,7 @@ st.markdown(
         div[data-testid="stForm"] {background: rgba(255,255,255,.88); border: 1px solid #E7EEF7; border-radius: 22px; padding: 1.3rem; box-shadow: 0 10px 30px rgba(15,45,75,.05);}
         .footer-note {margin-top: 2rem; text-align: center; color: #8292A5; font-size: .82rem;}
         .stSelectbox > label {color: #000000;}
+        .stNumberInput > label {color: #000000;}
     </style>
     """,
     unsafe_allow_html=True,
