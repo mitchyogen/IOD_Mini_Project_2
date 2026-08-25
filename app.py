@@ -210,7 +210,7 @@ with right:
             st.write(f"{datetime(2000, transaction_month, 1).strftime('%B')} {transaction_year}")
 
 st.write("")
-with st.expander("ℹ️ About this estimator"):
+with st.container(border=True):
     st.write(
         """
         This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.
