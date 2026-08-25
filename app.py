@@ -107,7 +107,7 @@ st.markdown(
     """
     <div class="hero">
         <h1>🏠 HDB Resale Price Predictor</h1>
-        <p>Estimate the resale value of an HDB flat using its location, property characteristics, storey and remaining lease.</p>
+        <p>Estimate the resale value of an HDB flat using its location, property characteristics, storey, remaining lease and transaction timing.</p>
     </div>
     """,
     unsafe_allow_html=True,
