@@ -8,15 +8,6 @@ import sklearn
 import xgboost
 import numpy as np
 
-st.write({
-    "sklearn": sklearn.__version__,
-    "xgboost": xgboost.__version__,
-    "joblib": joblib.__version__,
-    "pandas": pd.__version__,
-    "numpy": np.__version__,
-})
-
-
 # --------------------------------------------------------------------------
 # Config
 # --------------------------------------------------------------------------
@@ -27,7 +18,6 @@ st.set_page_config(
     page_icon="🏠",
     layout="centered",
 )
-
 
 # --------------------------------------------------------------------------
 # Cached loader
@@ -79,6 +69,7 @@ st.markdown(
         div[data-testid="stMetric"] {background: #FFF; border: 1px solid #E7EEF7; padding: .9rem 1rem; border-radius: 16px;}
         div[data-testid="stForm"] {background: rgba(255,255,255,.88); border: 1px solid #E7EEF7; border-radius: 22px; padding: 1.3rem; box-shadow: 0 10px 30px rgba(15,45,75,.05);}
         .footer-note {margin-top: 2rem; text-align: center; color: #8292A5; font-size: .82rem;}
+        .stSelectbox > label {color: #000000;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -131,7 +122,6 @@ left, right = st.columns([1.65, 1], gap="large")
 with left:
     st.markdown('<div class="section-label">Property details</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Tell us about the flat</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-copy">Enter the same information used by the trained model.</div>', unsafe_allow_html=True)
 
     with st.form("hdb_prediction_form"):
         c1, c2 = st.columns(2)
@@ -181,7 +171,6 @@ if submitted:
 with right:
     st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
 
     if "prediction_error" in st.session_state:
         st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
