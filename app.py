@@ -131,7 +131,7 @@ with left:
         with c2:
             storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, value=11, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
             remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, value=71.0, step=0.1)
-            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=200, value=93, step=1.0)
+            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=200, value=93, step=1)
             # transaction_year = st.selectbox("Transaction year", list(range(2017, CURRENT_YEAR + 2)), index=len(list(range(2017, CURRENT_YEAR + 2))) - 1)
             # transaction_month = st.selectbox("Transaction month", list(range(1, 13)), index=max(datetime.now().month - 1, 0), format_func=lambda x: datetime(2000, x, 1).strftime("%B"))
 
