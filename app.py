@@ -211,6 +211,6 @@ with right:
 
 st.write("")
 with st.container(border=True):
-        st.markdown("<footer>This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.</footer>")
+        st.markdown("<footer>This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.</footer>", unsafe_allow_html=True)
 
 st.markdown('<div class="footer-note">HDB Resale Price Predictor · Streamlit interface</div>', unsafe_allow_html=True)
