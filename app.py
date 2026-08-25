@@ -211,12 +211,6 @@ with right:
 
 st.write("")
 with st.container(border=True):
-    st.write(
-        """
-        This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.
-
-        The model connection and prediction logic are intentionally not included in this layout-only version.
-        """
-    )
+        st.markdown("<footer>This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.</footer>")
 
 st.markdown('<div class="footer-note">HDB Resale Price Predictor · Streamlit interface</div>', unsafe_allow_html=True)
