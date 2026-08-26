@@ -217,8 +217,8 @@ with right:
             st.write(f"{floor_area_sqm:.0f} sqm")
             st.write("**Storey**")
             st.write(f"{storey_midpoint:.0f}")
-            st.write("**Remaining Lease (Years)**")
-            st.write(f"{remaining_lease_years}")
+            st.write("**Remaining Lease**")
+            st.write(f"{remaining_lease_years} years")
 
 st.write("")
 with st.container(border=True):
