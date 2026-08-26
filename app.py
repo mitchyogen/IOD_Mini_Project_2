@@ -137,6 +137,9 @@ with left:
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
 
+prediction_error = st.session_state.get("prediction_error")
+predicted_price = st.session_state.get("predicted_price")
+    
 if submitted:
     try:
         if model is None:
@@ -166,33 +169,6 @@ if submitted:
 
 
 with right:
-    # st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
-    # st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
-    # st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
-
-    # if "prediction_error" in st.session_state:
-    #     st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
-    # elif "predicted_price" in st.session_state:
-    #     st.success(
-    #         f"### Estimated Price: S${st.session_state['predicted_price']:,.2f}"
-    #     )
-    # else:
-    #     st.markdown(
-    #         """
-    #         <div class="prediction-card">
-    #             <div class="prediction-label">Estimated Resale Price</div>
-    #             <div class="prediction-value">S$ —</div>
-    #             <div class="prediction-note">
-    #                 Complete the property details and run the prediction.
-    #             </div>
-    #         </div>
-    #         """,
-    #         unsafe_allow_html=True,
-    #     )
-
-    prediction_error = st.session_state.get("prediction_error")
-    predicted_price = st.session_state.get("predicted_price")
-    
     if "predicted_price" not in st.session_state:
         st.session_state["predicted_price"] = None
 
