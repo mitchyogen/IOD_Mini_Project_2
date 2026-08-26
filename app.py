@@ -132,7 +132,7 @@ with left:
         with c2:
             floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, step=1)
             storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
-            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, step=0.1)
+            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=20, max_value=99, step=1)
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
