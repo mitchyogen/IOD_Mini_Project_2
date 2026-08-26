@@ -125,14 +125,14 @@ with left:
         c1, c2 = st.columns(2)
 
         with c1:
-            town = st.selectbox("Town", TOWNS, index=TOWNS.index("BISHAN"))
-            flat_type = st.selectbox("Flat type", FLAT_TYPES, index=FLAT_TYPES.index("4 ROOM"))
-            flat_model = st.selectbox("Flat model", FLAT_MODELS, index=FLAT_MODELS.index("Model A"))
+            town = st.selectbox("Town", TOWNS, index=TOWNS.index(""))
+            flat_type = st.selectbox("Flat type", FLAT_TYPES, index=FLAT_TYPES.index(""))
+            flat_model = st.selectbox("Flat model", FLAT_MODELS, index=FLAT_MODELS.index(""))
 
         with c2:
-            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, value=93, step=1)
-            storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, value=11, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
-            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, value=71.0, step=0.1)
+            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, step=1)
+            storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
+            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, step=0.1)
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
@@ -199,11 +199,15 @@ with right:
             st.write(town)
             st.write("**Flat type**")
             st.write(flat_type)
+            st.write("**Flat Model**")
+            st.write(flat_model)
         with s2:
             st.write("**Floor area**")
             st.write(f"{floor_area_sqm:.0f} sqm")
             st.write("**Storey**")
             st.write(f"{storey_midpoint:.0f}")
+            st.write("**Remaining Lease (Years)**")
+            st.write(remaining_lease_years)
 
 st.write("")
 with st.container(border=True):
