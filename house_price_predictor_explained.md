@@ -25,10 +25,10 @@ import streamlit as st
 ## Block 2 — Configuration
 
 ```python
-MODEL_PATH = "house_price_linear_regression.joblib"
+MODEL_PATH = "hdb_resale_price_model.joblib"
 
 st.set_page_config(
-    page_title="House Price Predictor",
+    page_title="HDB Resale House Price Predictor",
     page_icon="🏠",
     layout="centered",
 )
@@ -200,28 +200,37 @@ if submitted:
         st.session_state["prediction_error"] = str(e)
 
 with right:
-    st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
+    if "predicted_price" not in st.session_state:
+        st.session_state["predicted_price"] = None
 
-    if "prediction_error" in st.session_state:
-        st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
-    elif "predicted_price" in st.session_state:
-        st.success(
-            f"### Estimated Price: S${st.session_state['predicted_price']:,.2f}"
-        )
+    if "prediction_error" not in st.session_state:
+        st.session_state["prediction_error"] = None
+        
+    if prediction_error:
+        result_label = "Prediction unavailable"
+        result_value = "S$ —"
+        result_note = "Please review the inputs or model configuration and try again."
+
+    elif predicted_price is not None:
+        result_label = "Estimated Resale Price"
+        result_value = f"S${predicted_price:,.2f}"
+        result_note = "Model-generated estimate based on the property details provided."
+
     else:
-        st.markdown(
-            """
-            <div class="prediction-card">
-                <div class="prediction-label">Estimated Resale Price</div>
-                <div class="prediction-value">S$ —</div>
-                <div class="prediction-note">
-                    Complete the property details and run the prediction.
-                </div>
-            </div>
-            """,
+        result_label = "Estimated Resale Price"
+        result_value = "S$ —"
+        result_note = "Complete the property details and run the prediction."
 
+    st.markdown(
+        f"""
+        <div class="prediction-card">
+            <div class="prediction-label">{result_label}</div>
+            <div class="prediction-value">{result_value}</div>
+            <div class="prediction-note">{result_note}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 ```
 
 **What's happening:**
