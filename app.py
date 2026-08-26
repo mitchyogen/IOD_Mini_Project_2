@@ -63,7 +63,7 @@ st.markdown(
         .section-label {color: #0B3C6F; font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .2rem;}
         .section-title {color: #12263A; font-size: 1.35rem; font-weight: 800; margin-bottom: .25rem;}
         .section-copy {color: #64748B; font-size: .93rem; margin-bottom: 1rem;}
-        .prediction-card {width: 100%; border-radius: 22px; padding: 1.6rem; background: linear-gradient(135deg, #EAF5FF 0%, #F7FBFF 100%); border: 1px solid #CDE7FA; text-align: center; min-height: 190px; display: flex; flex-direction: column; justify-content: center;}
+        .prediction-card {border-radius: 22px; padding: 1.6rem; background: linear-gradient(135deg, #EAF5FF 0%, #F7FBFF 100%); border: 1px solid #CDE7FA; text-align: center; min-height: 190px; display: flex; flex-direction: column; justify-content: center;}
         .prediction-label {color: #557087; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;}
         .prediction-value {color: #0B3C6F; font-size: 2.6rem; font-weight: 900; margin: .35rem 0;}
         .prediction-note {color: #6B7F93; font-size: .88rem;}
@@ -132,7 +132,7 @@ with left:
         with c2:
             floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, step=1)
             storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
-            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=20, max_value=99, step=1)
+            remaining_lease_years = st.number_input("Remaining lease (years)", min_value=20.0, max_value=99.0, step=0.1)
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
@@ -161,35 +161,70 @@ if submitted:
         st.session_state.pop("prediction_error", None)
 
     except Exception as e:
+        st.session_state["predicted_price"] = None
         st.session_state["prediction_error"] = str(e)
 
 
 with right:
-    st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
+    # st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
+    # st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
+    # st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
 
-    if "prediction_error" in st.session_state:
-        st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
-    elif "predicted_price" in st.session_state:
-        st.success(
-            f"### Estimated Price: S${st.session_state['predicted_price']:,.2f}"
-        )
+    # if "prediction_error" in st.session_state:
+    #     st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
+    # elif "predicted_price" in st.session_state:
+    #     st.success(
+    #         f"### Estimated Price: S${st.session_state['predicted_price']:,.2f}"
+    #     )
+    # else:
+    #     st.markdown(
+    #         """
+    #         <div class="prediction-card">
+    #             <div class="prediction-label">Estimated Resale Price</div>
+    #             <div class="prediction-value">S$ —</div>
+    #             <div class="prediction-note">
+    #                 Complete the property details and run the prediction.
+    #             </div>
+    #         </div>
+    #         """,
+    #         unsafe_allow_html=True,
+    #     )
+
+    prediction_error = st.session_state.get("prediction_error")
+    predicted_price = st.session_state.get("predicted_price")
+    
+    if "predicted_price" not in st.session_state:
+        st.session_state["predicted_price"] = None
+
+    if "prediction_error" not in st.session_state:
+        st.session_state["prediction_error"] = None
+        
+    if prediction_error:
+        result_label = "Prediction unavailable"
+        result_value = "S$ —"
+        result_note = "Please review the inputs or model configuration and try again."
+
+    elif predicted_price is not None:
+        result_label = "Estimated Resale Price"
+        result_value = f"S${predicted_price:,.2f}"
+        result_note = "Model-generated estimate based on the property details provided."
+
     else:
-        st.markdown(
-            """
-            <div class="prediction-card">
-                <div class="prediction-label">Estimated Resale Price</div>
-                <div class="prediction-value">S$ —</div>
-                <div class="prediction-note">
-                    Complete the property details and run the prediction.
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        result_label = "Estimated Resale Price"
+        result_value = "S$ —"
+        result_note = "Complete the property details and run the prediction."
 
-    st.write("")
+    st.markdown(
+        f"""
+        <div class="prediction-card">
+            <div class="prediction-label">{result_label}</div>
+            <div class="prediction-value">{result_value}</div>
+            <div class="prediction-note">{result_note}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+        
     with st.container(border=True):
         st.markdown("#### Prediction summary")
         st.caption("Summary of Resale Flat")
