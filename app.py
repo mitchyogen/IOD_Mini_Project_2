@@ -19,6 +19,7 @@ st.set_page_config(
     layout="centered",
 )
 
+
 # --------------------------------------------------------------------------
 # Cached loader
 # --------------------------------------------------------------------------
@@ -71,7 +72,6 @@ st.markdown(
         .footer-note {margin-top: 2rem; text-align: center; color: #8292A5; font-size: .82rem;}
         .stSelectbox > label {color: #000000;}
         .stNumberInput > label {color: #000000;}
-        .stElementContainer {color: #000000;}
         [data-testid="stVerticalBlock"] {color: #000000;}
         [data-testid="stMarkdownContainer"] {color: orange;}
         [data-testid="stMarkdownContainer"] > p {color: #000000;}
@@ -102,6 +102,7 @@ FLAT_MODELS = [
 ]
 
 CURRENT_YEAR = datetime.now().year
+CURRENT_MONTH = datetime.now().month
 
 st.markdown(
     """
@@ -127,13 +128,11 @@ with left:
             town = st.selectbox("Town", TOWNS, index=TOWNS.index("BISHAN"))
             flat_type = st.selectbox("Flat type", FLAT_TYPES, index=FLAT_TYPES.index("4 ROOM"))
             flat_model = st.selectbox("Flat model", FLAT_MODELS, index=FLAT_MODELS.index("Model A"))
-            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=200, value=93, step=1)
-            
+
         with c2:
+            floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, value=93, step=1)
             storey_midpoint = st.number_input("Approximate storey", min_value=1, max_value=60, value=11, step=1, help="Use the midpoint of the HDB storey band, e.g. 10–12 → 11.")
             remaining_lease_years = st.number_input("Remaining lease (years)", min_value=0.0, max_value=99.0, value=71.0, step=0.1)
-            transaction_year = st.selectbox("Transaction year", list(range(2017, CURRENT_YEAR + 2)), index=len(list(range(2017, CURRENT_YEAR + 2))) - 1)
-            transaction_month = st.selectbox("Transaction month", list(range(1, 13)), index=max(datetime.now().month - 1, 0), format_func=lambda x: datetime(2000, x, 1).strftime("%B"))
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
@@ -153,8 +152,8 @@ if submitted:
             "floor_area_sqm": floor_area_sqm,
             "storey_midpoint": storey_midpoint,
             "remaining_lease_years": remaining_lease_years,
-            "transaction_year": transaction_year,
-            "transaction_month": transaction_month,
+            "transaction_year": CURRENT_YEAR,
+            "transaction_month": CURRENT_MONTH,
         }
 
         price = predict(model, input_values)
@@ -168,6 +167,7 @@ if submitted:
 with right:
     st.markdown('<div class="section-label">Estimate</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Predicted resale price</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-copy">Your model output will appear here after prediction logic is connected.</div>', unsafe_allow_html=True)
 
     if "prediction_error" in st.session_state:
         st.error(f"Couldn't generate a prediction: {st.session_state['prediction_error']}")
@@ -192,25 +192,21 @@ with right:
     st.write("")
     with st.container(border=True):
         st.markdown("#### Prediction summary")
-        st.caption("A quick review of the user inputs will appear here.")
+        st.caption("Summary of Resale Flat")
         s1, s2 = st.columns(2)
         with s1:
             st.write("**Town**")
             st.write(town)
             st.write("**Flat type**")
             st.write(flat_type)
+        with s2:
             st.write("**Floor area**")
             st.write(f"{floor_area_sqm:.0f} sqm")
-        with s2:
             st.write("**Storey**")
             st.write(f"{storey_midpoint:.0f}")
-            st.write("**Remaining lease**")
-            st.write(f"{remaining_lease_years:.1f} years")
-            st.write("**Transaction period**")
-            st.write(f"{datetime(2000, transaction_month, 1).strftime('%B')} {transaction_year}")
 
 st.write("")
 with st.container(border=True):
-            st.markdown('<footer class="footer-note">This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.</footer>', unsafe_allow_html=True)
+    st.markdown('<footer class="footer-note">This interface is designed for an HDB resale-price regression model trained on historical resale transactions. The final prediction should be treated as an analytical estimate rather than an official valuation.</footer>', unsafe_allow_html=True)
 
 st.markdown('<div class="footer-note">HDB Resale Price Predictor · Streamlit interface</div>', unsafe_allow_html=True)
