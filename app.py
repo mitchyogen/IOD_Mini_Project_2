@@ -125,9 +125,9 @@ with left:
         c1, c2 = st.columns(2)
 
         with c1:
-            town = st.selectbox("Town", TOWNS, index=TOWNS.index(""))
-            flat_type = st.selectbox("Flat type", FLAT_TYPES, index=FLAT_TYPES.index(""))
-            flat_model = st.selectbox("Flat model", FLAT_MODELS, index=FLAT_MODELS.index(""))
+            town = st.selectbox("Town", TOWNS)
+            flat_type = st.selectbox("Flat type", FLAT_TYPES)
+            flat_model = st.selectbox("Flat model", FLAT_MODELS)
 
         with c2:
             floor_area_sqm = st.number_input("Floor area (sqm)", min_value=31, max_value=140, step=1)
