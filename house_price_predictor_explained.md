@@ -253,4 +253,5 @@ This structure (config → load resources → define helpers → build UI → ha
 ## Assumptions
 
 **HDB Loan Restrictions**: HDB loans require a flat to have a minimum of 20 years of remaining lease.
+
 **Floor Area (sqm)**: The lowest floor area ever recorded in an official HDB resale transaction is 31 square metres (sqm) (approximately 334 square feet).
