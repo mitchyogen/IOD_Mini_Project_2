@@ -63,7 +63,7 @@ st.markdown(
         .section-label {color: #0B3C6F; font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .2rem;}
         .section-title {color: #12263A; font-size: 1.35rem; font-weight: 800; margin-bottom: .25rem;}
         .section-copy {color: #64748B; font-size: .93rem; margin-bottom: 1rem;}
-        .prediction-card {max-width: 190px; border-radius: 22px; padding: 1.6rem; background: linear-gradient(135deg, #EAF5FF 0%, #F7FBFF 100%); border: 1px solid #CDE7FA; text-align: center; min-height: 190px; display: flex; flex-direction: column; justify-content: center;}
+        .prediction-card {width: 100%; border-radius: 22px; padding: 1.6rem; background: linear-gradient(135deg, #EAF5FF 0%, #F7FBFF 100%); border: 1px solid #CDE7FA; text-align: center; min-height: 190px; display: flex; flex-direction: column; justify-content: center;}
         .prediction-label {color: #557087; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;}
         .prediction-value {color: #0B3C6F; font-size: 2.6rem; font-weight: 900; margin: .35rem 0;}
         .prediction-note {color: #6B7F93; font-size: .88rem;}
