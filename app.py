@@ -52,6 +52,12 @@ st.set_page_config(
 
 model = load_model()
 
+if "predicted_price" not in st.session_state:
+    st.session_state["predicted_price"] = None
+
+if "prediction_error" not in st.session_state:
+    st.session_state["prediction_error"] = None
+
 st.markdown(
     """
     <style>
@@ -168,13 +174,7 @@ if submitted:
         st.session_state["prediction_error"] = str(e)
 
 
-with right:
-    if "predicted_price" not in st.session_state:
-        st.session_state["predicted_price"] = None
-
-    if "prediction_error" not in st.session_state:
-        st.session_state["prediction_error"] = None
-        
+with right:        
     if prediction_error:
         result_label = "Prediction unavailable"
         result_value = "S$ —"
