@@ -13,12 +13,6 @@ import numpy as np
 # --------------------------------------------------------------------------
 MODEL_PATH = "hdb_resale_price_model.joblib"
 
-st.set_page_config(
-    page_title="HDB Resale House Price Predictor",
-    page_icon="🏠",
-    layout="centered",
-)
-
 
 # --------------------------------------------------------------------------
 # Cached loader
@@ -142,6 +136,9 @@ with left:
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
+
+prediction_error = st.session_state.get("prediction_error")
+predicted_price = st.session_state.get("predicted_price")
     
 if submitted:
     try:
@@ -164,14 +161,17 @@ if submitted:
 
         price = predict(model, input_values)
         st.session_state["predicted_price"] = price
-        st.session_state.pop("prediction_error", None)
+        st.session_state["prediction_error"] = None
 
     except Exception as e:
         st.session_state["predicted_price"] = None
         st.session_state["prediction_error"] = str(e)
 
+prediction_error = st.session_state.get("prediction_error")
+predicted_price = st.session_state.get("predicted_price")
 
-with right:        
+with right:
+
     if prediction_error:
         result_label = "Prediction unavailable"
         result_value = "S$ —"
