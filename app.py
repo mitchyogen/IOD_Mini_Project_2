@@ -142,9 +142,6 @@ with left:
 
         st.write("")
         submitted = st.form_submit_button("✨ Predict Resale Price", use_container_width=True, type="primary")
-
-prediction_error = st.session_state.get("prediction_error")
-predicted_price = st.session_state.get("predicted_price")
     
 if submitted:
     try:
